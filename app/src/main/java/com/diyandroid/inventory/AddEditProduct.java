@@ -37,8 +37,6 @@ public class AddEditProduct extends AppCompatActivity implements
     private EditText mProductSupplierName;
     private EditText mProductSupplierPhone;
 
-    private Button submit;
-
     private boolean mPetHasChanged = false;
 
     private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
@@ -59,7 +57,7 @@ public class AddEditProduct extends AppCompatActivity implements
         Intent intent = getIntent();
         mCurrentProductUri = intent.getData();
 
-        submit = (Button) findViewById(R.id.submit);
+        Button submit = (Button) findViewById(R.id.submit);
 
         // If the intent DOES NOT contain a pet content URI, then we know that we are
         // creating a new pet.
