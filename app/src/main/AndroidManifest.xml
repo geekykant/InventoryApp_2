@@ -22,7 +22,7 @@
             android:authorities="com.diyandroid.inventory"
             android:exported="false" />
 
-        <activity android:name=".AddProduct">
+        <activity android:name=".AddEditProduct">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />

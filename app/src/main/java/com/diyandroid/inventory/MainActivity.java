@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AddProduct.class);
+                Intent intent = new Intent(MainActivity.this, AddEditProduct.class);
                 startActivity(intent);
             }
         });
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements
         petListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, AddProduct.class);
+                Intent intent = new Intent(MainActivity.this, AddEditProduct.class);
 
                 Uri currentPetUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, id);
 

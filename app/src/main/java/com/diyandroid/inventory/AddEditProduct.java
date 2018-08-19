@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 import com.diyandroid.inventory.data.InventoryContract.InventoryEntry;
 
-public class AddProduct extends AppCompatActivity implements
+public class AddEditProduct extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int EXISTING_PET_LOADER = 0;
@@ -226,7 +226,7 @@ public class AddProduct extends AppCompatActivity implements
             // Respond to a click on the "Up" arrow button in the app bar
             case android.R.id.home:
                 if (!mPetHasChanged) {
-                    NavUtils.navigateUpFromSameTask(AddProduct.this);
+                    NavUtils.navigateUpFromSameTask(AddEditProduct.this);
                     return true;
                 }
 
@@ -236,7 +236,7 @@ public class AddProduct extends AppCompatActivity implements
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 // User clicked "Discard" button, navigate to parent activity.
-                                NavUtils.navigateUpFromSameTask(AddProduct.this);
+                                NavUtils.navigateUpFromSameTask(AddEditProduct.this);
                             }
                         };
 
