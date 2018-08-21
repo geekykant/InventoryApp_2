@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context="com.diyandroid.inventory.ProductDetails">
+
+    <TextView
+        android:id="@+id/seeProductName"
+        style="@style/textBoxStyle"
+        android:text="@string/product_name" />
+
+    <TextView
+        android:id="@+id/seeProductPrice"
+        style="@style/textBoxStyle"
+        android:layout_below="@id/seeProductName"
+        android:text="@string/price" />
+
+    <TextView
+        android:id="@+id/seeProductQuantity"
+        style="@style/textBoxStyle"
+        android:layout_below="@id/seeProductPrice"
+        android:text="@string/quantity" />
+
+    <TextView
+        android:id="@+id/seeProductSupplierName"
+        style="@style/textBoxStyle"
+        android:layout_below="@id/seeProductQuantity"
+        android:text="@string/supplier_name" />
+
+    <TextView
+        android:id="@+id/seeProductPhoneNo"
+        style="@style/textBoxStyle"
+        android:layout_below="@id/seeProductSupplierName"
+        android:text="@string/supplier_phone_no" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_action_name" />
+
+</RelativeLayout>
