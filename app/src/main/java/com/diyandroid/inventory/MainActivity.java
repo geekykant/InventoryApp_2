@@ -16,8 +16,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.diyandroid.inventory.data.InventoryContract.InventoryEntry;
 
@@ -29,13 +29,15 @@ public class MainActivity extends AppCompatActivity implements
      */
     ProductCursorAdapter mCursorAdapter;
 
-    //Identifier for the pet data loader
-    private static final int PET_LOADER = 0;
+    //Identifier for the product data loader
+    private static final int PRODUCT_LOADER = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ((LinearLayout)findViewById(R.id.emptyView)).setVisibility(View.VISIBLE);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -46,14 +48,14 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
 
-        // Find the ListView which will be populated with the pet data
-        ListView petListView = (ListView) findViewById(R.id.listView);
+        // Find the ListView which will be populated with the product data
+        ListView productListView = (ListView) findViewById(R.id.listView);
 
         mCursorAdapter = new ProductCursorAdapter(this, null);
-        petListView.setAdapter(mCursorAdapter);
+        productListView.setAdapter(mCursorAdapter);
 
         // Setup the item click listener
-        petListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
@@ -66,12 +68,12 @@ public class MainActivity extends AppCompatActivity implements
         });
 
         // Kick off the loader
-        getLoaderManager().initLoader(PET_LOADER, null, this);
+        getLoaderManager().initLoader(PRODUCT_LOADER, null, this);
     }
 
     private void insertDummyProduct() {
         // Create a ContentValues object where column names are the keys,
-        // and Toto's pet attributes are the values.
+        // and Toto's product attributes are the values.
         ContentValues values = new ContentValues();
         values.put(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_NAME, "Amazon");
         values.put(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NO, "9082187");
@@ -81,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements
             values.put(InventoryEntry.COLUMN_PRODUCT_QUANTITY, Math.floor(Math.random() * 100) + 1);
             values.put(InventoryEntry.COLUMN_PRODUCT_PRICE, Math.floor(Math.random() * 100) + 10000);
             Uri newUri = getContentResolver().insert(InventoryEntry.CONTENT_URI, values);
-            Toast.makeText(this, "Uri: " + newUri, Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -107,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements
 
             case R.id.delete_all:
                 deleteAllProducts();
+                ((LinearLayout)findViewById(R.id.emptyView)).setVisibility(View.VISIBLE);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -132,8 +134,13 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        // Update {@link PetCursorAdapter} with this new cursor containing updated pet data
+        // Update {@link PetCursorAdapter} with this new cursor containing updated product data
         mCursorAdapter.swapCursor(data);
+        if(data.getCount()!=0){
+            ((LinearLayout)findViewById(R.id.emptyView)).setVisibility(View.GONE);
+        }else{
+            ((LinearLayout)findViewById(R.id.emptyView)).setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

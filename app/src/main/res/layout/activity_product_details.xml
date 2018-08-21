@@ -7,6 +7,35 @@
     android:padding="10dp"
     tools:context="com.diyandroid.inventory.ProductDetails">
 
+    <Button
+        android:id="@+id/deleteProduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/purchaseText"
+        android:layout_margin="20dp"
+        android:background="@drawable/login_button"
+        android:text="@string/delete_product"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/purchase"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/quantityChanger"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/login_button"
+        android:foreground="@drawable/ic_action_call" />
+
+
+    <TextView
+        android:id="@+id/purchaseText"
+        style="@style/textBoxStyle"
+        android:layout_below="@id/purchase"
+        android:gravity="center"
+        android:text="@string/call_supplier"
+        android:textSize="14sp" />
+
     <TextView
         android:id="@+id/seeProductName"
         style="@style/textBoxStyle"
@@ -43,5 +72,34 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:src="@drawable/ic_action_name" />
+
+    <LinearLayout
+        android:id="@+id/quantityChanger"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/seeProductPhoneNo"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/decreaseQuantity"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_margin="1dp"
+            android:background="@drawable/login_button"
+            android:foreground="@drawable/ic_action_remove" />
+
+        <Button
+            android:id="@+id/increaseQuantity"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_margin="1dp"
+            android:background="@drawable/login_button"
+            android:foreground="@drawable/ic_action_add" />
+    </LinearLayout>
+
 
 </RelativeLayout>

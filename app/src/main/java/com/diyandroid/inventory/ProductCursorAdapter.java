@@ -31,7 +31,7 @@ public class ProductCursorAdapter extends CursorAdapter {
     public void bindView(final View view, Context context, final Cursor cursor) {
 
         final TextView productName = (TextView) view.findViewById(R.id.productName);
-        productName.setTag(cursor.getPosition());
+        productName.setTag(cursor.getInt(cursor.getColumnIndex(InventoryEntry._ID)));
 
         TextView productPrice = (TextView) view.findViewById(R.id.productPrice);
         final TextView productQuantity = (TextView) view.findViewById(R.id.productQuantity);
@@ -55,7 +55,8 @@ public class ProductCursorAdapter extends CursorAdapter {
         minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int position = (int) productName.getTag() + 1;
+                int position = (int) productName.getTag();
+
                 Uri mCurrentProductUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, position);
 
                 ContentValues values = new ContentValues();
@@ -80,7 +81,7 @@ public class ProductCursorAdapter extends CursorAdapter {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int position = (int) productName.getTag() + 1 ;
+                int position = (int) productName.getTag();
 
                 Uri mCurrentProductUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, position);
 

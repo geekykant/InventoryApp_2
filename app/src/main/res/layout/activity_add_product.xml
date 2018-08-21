@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add New Product"
+        android:text="@string/add_new_product"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="23sp" />
 
@@ -23,7 +23,7 @@
             android:id="@+id/addProductName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name" />
+            android:hint="@string/name_1" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -34,9 +34,9 @@
         <EditText
             android:id="@+id/addProductPrice"
             android:layout_width="match_parent"
-            android:inputType="number"
             android:layout_height="wrap_content"
-            android:hint="Price" />
+            android:hint="@string/price_1"
+            android:inputType="number" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -48,8 +48,8 @@
             android:id="@+id/addProductQuantity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:hint="Quantity" />
+            android:hint="@string/quantity_1"
+            android:inputType="number" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -61,7 +61,7 @@
             android:id="@+id/addSupplierName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Supplier Name" />
+            android:hint="@string/supplier_name_1" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -73,7 +73,9 @@
             android:id="@+id/addSupplierPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Supplier Phone No." />
+            android:inputType="number"
+            android:hint="@string/supplier_phone_no_1"
+            tools:ignore="TextFields" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -82,9 +84,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:textColor="@android:color/white"
         android:background="@drawable/login_button"
-        android:text="Submit" />
+        android:text="@string/submit_"
+        android:textColor="@android:color/white" />
 
 
 </LinearLayout>

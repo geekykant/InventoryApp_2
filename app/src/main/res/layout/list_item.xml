@@ -17,17 +17,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Product Name"
+            android:textStyle="bold"
+            android:text="@string/product_name_set"
             android:textColor="@android:color/black"
-            android:textSize="18sp" />
+            android:textSize="19sp" />
 
         <TextView
             android:id="@+id/productPrice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="Price"
+            android:gravity="end"
+            android:text="@string/price_set"
             android:textColor="@android:color/holo_red_dark"
             android:textSize="17sp" />
 
@@ -52,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Quantity"
+            android:text="@string/quantity_set"
             android:textColor="@android:color/holo_blue_dark"
             android:textSize="20sp" />
 

@@ -22,8 +22,8 @@ public class InventoryProvider extends ContentProvider {
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     static {
-        sUriMatcher.addURI(InventoryContract.CONTENT_AUTHORITY, InventoryContract.PATH_PETS, INVENTORY);
-        sUriMatcher.addURI(InventoryContract.CONTENT_AUTHORITY, InventoryContract.PATH_PETS + "/#", INVENTORY_ID);
+        sUriMatcher.addURI(InventoryContract.CONTENT_AUTHORITY, InventoryContract.PATH_PRODUCTS, INVENTORY);
+        sUriMatcher.addURI(InventoryContract.CONTENT_AUTHORITY, InventoryContract.PATH_PRODUCTS + "/#", INVENTORY_ID);
     }
 
     /**
@@ -55,7 +55,7 @@ public class InventoryProvider extends ContentProvider {
                 selection = InventoryEntry._ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
 
-                // This will perform a query on the pets table where the _id equals 3 to return a
+                // This will perform a query on the products table where the _id equals 3 to return a
                 // Cursor containing that row of the table.
                 cursor = database.query(InventoryEntry.TABLE_NAME, projection, selection, selectionArgs,
                         null, null, sortOrder);
@@ -101,9 +101,6 @@ public class InventoryProvider extends ContentProvider {
             throw new IllegalArgumentException("Product requires a name");
         }
 
-//        String productSupplierName = values.getAsString(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_NAME);
-//        String productSupplierPhone = values.getAsString(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NO);
-
         Integer productQuantity = values.getAsInteger(InventoryEntry.COLUMN_PRODUCT_QUANTITY);
         if (productQuantity != null && productQuantity < 0) {
             throw new IllegalArgumentException("Product requires valid quantity");
@@ -127,7 +124,7 @@ public class InventoryProvider extends ContentProvider {
             return null;
         }
 
-        // Notify all listeners that the data has changed for the pet content URI
+        // Notify all listeners that the data has changed for the product content URI
         getContext().getContentResolver().notifyChange(uri, null);
 
         // Return the new URI with the ID (of the newly inserted row) appended at the end
@@ -175,7 +172,7 @@ public class InventoryProvider extends ContentProvider {
             case INVENTORY:
                 return updateProduct(uri, contentValues, selection, selectionArgs);
             case INVENTORY_ID:
-                // For the PET_ID code, extract out the ID from the URI,
+                // For the PRODUCT_ID code, extract out the ID from the URI,
                 // so we know which row to update. Selection will be "_id=?" and selection
                 // arguments will be a String array containing the actual ID.
                 selection = InventoryEntry._ID + "=?";
@@ -187,7 +184,7 @@ public class InventoryProvider extends ContentProvider {
     }
 
     private int updateProduct(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        // If the {@link PetEntry#COLUMN_PET_NAME} key is present,
+        // If the {@link PetEntry#COLUMN_PRODUCT_NAME} key is present,
         // check that the name value is not null.
         if (values.containsKey(InventoryEntry.COLUMN_PRODUCT_NAME)) {
             String productName = values.getAsString(InventoryEntry.COLUMN_PRODUCT_NAME);
