@@ -70,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:src="@drawable/ic_action_name" />
 
     <LinearLayout
@@ -89,7 +89,8 @@
             android:layout_gravity="center"
             android:layout_margin="1dp"
             android:background="@drawable/login_button"
-            android:foreground="@drawable/ic_action_remove" />
+            android:foreground="@drawable/ic_action_remove"
+            tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/increaseQuantity"
@@ -98,7 +99,8 @@
             android:layout_gravity="center"
             android:layout_margin="1dp"
             android:background="@drawable/login_button"
-            android:foreground="@drawable/ic_action_add" />
+            android:foreground="@drawable/ic_action_add"
+            tools:ignore="ButtonStyle" />
     </LinearLayout>
 
 
