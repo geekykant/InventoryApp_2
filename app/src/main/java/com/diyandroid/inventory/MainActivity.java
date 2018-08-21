@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.diyandroid.inventory.data.InventoryContract.InventoryEntry;
 
@@ -72,13 +73,17 @@ public class MainActivity extends AppCompatActivity implements
         // Create a ContentValues object where column names are the keys,
         // and Toto's pet attributes are the values.
         ContentValues values = new ContentValues();
-        values.put(InventoryEntry.COLUMN_PRODUCT_NAME, "Apple MacBook Air");
-        values.put(InventoryEntry.COLUMN_PRODUCT_PRICE, 43000);
-        values.put(InventoryEntry.COLUMN_PRODUCT_QUANTITY, 3);
         values.put(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_NAME, "Amazon");
         values.put(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NO, "9082187");
 
-        Uri newUri = getContentResolver().insert(InventoryEntry.CONTENT_URI, values);
+        for (int i = 1; i < 4; i++) {
+            values.put(InventoryEntry.COLUMN_PRODUCT_NAME, "Apple " + i);
+            values.put(InventoryEntry.COLUMN_PRODUCT_QUANTITY, Math.floor(Math.random() * 100) + 1);
+            values.put(InventoryEntry.COLUMN_PRODUCT_PRICE, Math.floor(Math.random() * 100) + 10000);
+            Uri newUri = getContentResolver().insert(InventoryEntry.CONTENT_URI, values);
+            Toast.makeText(this, "Uri: " + newUri, Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private void deleteAllProducts() {

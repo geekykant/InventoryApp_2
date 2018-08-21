@@ -59,7 +59,7 @@ public class ProductCursorAdapter extends CursorAdapter {
                 Uri mCurrentProductUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, position);
 
                 ContentValues values = new ContentValues();
-                int newQuantity = Integer.parseInt(cursor.getString(quantityColumnIndex)) - 1;
+                int newQuantity = Integer.parseInt(productQuantity.getText().toString())- 1;
 
                 if (newQuantity < 0) {
                     Toast.makeText(view.getContext(), "Empty stock", Toast.LENGTH_SHORT).show();
@@ -72,9 +72,6 @@ public class ProductCursorAdapter extends CursorAdapter {
                     if (rowsAffected == 0) {
                         // If no rows were affected, then there was an error with the update.
                         Toast.makeText(view.getContext(), "updating failed!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        // Otherwise, the update was successful and we can display a toast.
-                        Toast.makeText(view.getContext(), "Successfully updated!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -83,12 +80,12 @@ public class ProductCursorAdapter extends CursorAdapter {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int position = (int) productName.getTag() + 1;
+                int position = (int) productName.getTag() + 1 ;
 
                 Uri mCurrentProductUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, position);
 
                 ContentValues values = new ContentValues();
-                int newQuantity = Integer.parseInt(cursor.getString(quantityColumnIndex)) + 1;
+                int newQuantity = Integer.parseInt(productQuantity.getText().toString()) + 1;
 
                 values.put(InventoryEntry.COLUMN_PRODUCT_QUANTITY, newQuantity);
 
@@ -98,12 +95,11 @@ public class ProductCursorAdapter extends CursorAdapter {
                 if (rowsAffected == 0) {
                     // If no rows were affected, then there was an error with the update.
                     Toast.makeText(view.getContext(), "updating failed!", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Otherwise, the update was successful and we can display a toast.
-                    Toast.makeText(view.getContext(), "Successfully updated!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
+
+
 
 }

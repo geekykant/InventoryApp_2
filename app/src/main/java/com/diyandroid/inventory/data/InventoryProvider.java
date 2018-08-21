@@ -39,7 +39,8 @@ public class InventoryProvider extends ContentProvider {
 
     @Nullable
     @Override
-    public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String s1) {
+    public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection,
+                        @Nullable String[] selectionArgs, @Nullable String sortOrder) {
 
         SQLiteDatabase database = mDbHelper.getReadableDatabase();
         Cursor cursor;
@@ -48,7 +49,7 @@ public class InventoryProvider extends ContentProvider {
         switch (match) {
             case INVENTORY:
                 cursor = database.query(InventoryEntry.TABLE_NAME, projection, selection, selectionArgs,
-                        null, null, null);
+                        null, null, sortOrder);
                 break;
             case INVENTORY_ID:
                 selection = InventoryEntry._ID + "=?";
@@ -57,7 +58,7 @@ public class InventoryProvider extends ContentProvider {
                 // This will perform a query on the pets table where the _id equals 3 to return a
                 // Cursor containing that row of the table.
                 cursor = database.query(InventoryEntry.TABLE_NAME, projection, selection, selectionArgs,
-                        null, null, null);
+                        null, null, sortOrder);
                 break;
             default:
                 throw new IllegalArgumentException("Cannot query unknown URI " + uri);
