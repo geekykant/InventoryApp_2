@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical"
     android:padding="10dp">
 
     <LinearLayout
@@ -17,10 +17,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textStyle="bold"
             android:text="@string/product_name_set"
             android:textColor="@android:color/black"
-            android:textSize="19sp" />
+            android:textSize="19sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/productPrice"
@@ -42,10 +42,12 @@
 
         <Button
             android:id="@+id/productMinus"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@drawable/login_button"
-            android:foreground="@drawable/ic_action_remove" />
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            android:text="@string/sale" />
 
         <TextView
             android:id="@+id/productQuantity"
@@ -56,13 +58,6 @@
             android:text="@string/quantity_set"
             android:textColor="@android:color/holo_blue_dark"
             android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/productAdd"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:background="@drawable/login_button"
-            android:foreground="@drawable/ic_action_add" />
 
     </LinearLayout>
 

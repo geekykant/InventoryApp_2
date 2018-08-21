@@ -95,12 +95,10 @@ public class AddEditProduct extends AppCompatActivity implements
         mProductSupplierName.setOnTouchListener(mTouchListener);
         mProductSupplierPhone.setOnTouchListener(mTouchListener);
 
-
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 saveProduct();
-                finish();
             }
         });
     }
@@ -127,8 +125,16 @@ public class AddEditProduct extends AppCompatActivity implements
         // Create a ContentValues object where column names are the keys,
         // and product attributes from the editor are the values.
         ContentValues values = new ContentValues();
+
+        if (TextUtils.isEmpty(productName) || TextUtils.isEmpty(productPrice)) {
+            Toast.makeText(this, "Incomplete Product Name or Price!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
         values.put(InventoryEntry.COLUMN_PRODUCT_NAME, productName);
         values.put(InventoryEntry.COLUMN_PRODUCT_PRICE, Integer.parseInt(productPrice));
+
 
         if (TextUtils.isEmpty(productSupplierName)) {
             values.put(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_NAME, "");
@@ -148,6 +154,7 @@ public class AddEditProduct extends AppCompatActivity implements
         if (TextUtils.isEmpty(productQuantity)) {
             productQuantity = "0";
         }
+
         values.put(InventoryEntry.COLUMN_PRODUCT_QUANTITY, Integer.parseInt(productQuantity));
 
         // Determine if this is a new or existing product by checking if mCurrentPetUri is null or not
@@ -184,6 +191,8 @@ public class AddEditProduct extends AppCompatActivity implements
                         Toast.LENGTH_SHORT).show();
             }
         }
+
+        finish();
     }
 
     @Override

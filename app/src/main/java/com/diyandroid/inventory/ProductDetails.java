@@ -9,6 +9,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -27,6 +28,8 @@ public class ProductDetails extends AppCompatActivity implements
     private static final int EXISTING_PRODUCT_LOADER = 0;
     private int quantity;
     private String supplierContact;
+
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,9 +106,9 @@ public class ProductDetails extends AppCompatActivity implements
             ((TextView) findViewById(R.id.seeProductSupplierName)).setText(getString(R.string.supplier_name) + cursor.getString(supplierNameColumnIndex));
             ((TextView) findViewById(R.id.seeProductPhoneNo)).setText(getString(R.string.supplier_phone_no) + cursor.getString(supplierPhoneColumnIndex));
 
-            if(TextUtils.isEmpty(supplierContact)){
-                ((Button)findViewById(R.id.purchase)).setVisibility(View.GONE);
-                ((TextView)findViewById(R.id.purchaseText)).setVisibility(View.GONE);
+            if (TextUtils.isEmpty(supplierContact)) {
+                ((Button) findViewById(R.id.purchase)).setVisibility(View.GONE);
+                ((TextView) findViewById(R.id.purchaseText)).setVisibility(View.GONE);
             }
         }
     }
@@ -159,17 +162,29 @@ public class ProductDetails extends AppCompatActivity implements
                 }
                 break;
             case R.id.deleteProduct:
-                int rowsDeleted = getContentResolver().delete(mCurrentProductUri, null, null);
+                if (doubleBackToExitPressedOnce) {
+                    int rowsDeleted = getContentResolver().delete(mCurrentProductUri, null, null);
 
-                // Show a toast message depending on whether or not the delete was successful.
-                if (rowsDeleted == 0) {
-                    // If no rows were deleted, then there was an error with the delete.
-                    Toast.makeText(this, "Deletion failed!", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Otherwise, the delete was successful and we can display a toast.
-                    Toast.makeText(this, "Deletion Successful!", Toast.LENGTH_SHORT).show();
+                    // Show a toast message depending on whether or not the delete was successful.
+                    if (rowsDeleted == 0) {
+                        // If no rows were deleted, then there was an error with the delete.
+                        Toast.makeText(this, "Deletion failed!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // Otherwise, the delete was successful and we can display a toast.
+                        Toast.makeText(this, "Deletion Successful!", Toast.LENGTH_SHORT).show();
+                    }
+                    finish();
                 }
-                finish();
+
+                this.doubleBackToExitPressedOnce = true;
+                Toast.makeText(this, "Please click again to delete!", Toast.LENGTH_SHORT).show();
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        doubleBackToExitPressedOnce = false;
+                    }
+                }, 2000);
                 break;
         }
     }

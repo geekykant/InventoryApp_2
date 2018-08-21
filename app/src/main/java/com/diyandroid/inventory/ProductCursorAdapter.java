@@ -37,7 +37,6 @@ public class ProductCursorAdapter extends CursorAdapter {
         final TextView productQuantity = (TextView) view.findViewById(R.id.productQuantity);
 
         Button minus = (Button) view.findViewById(R.id.productMinus);
-        Button add = (Button) view.findViewById(R.id.productAdd);
 
         final int nameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_NAME);
         final int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_PRICE);
@@ -74,28 +73,6 @@ public class ProductCursorAdapter extends CursorAdapter {
                         // If no rows were affected, then there was an error with the update.
                         Toast.makeText(view.getContext(), "updating failed!", Toast.LENGTH_SHORT).show();
                     }
-                }
-            }
-        });
-
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int position = (int) productName.getTag();
-
-                Uri mCurrentProductUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, position);
-
-                ContentValues values = new ContentValues();
-                int newQuantity = Integer.parseInt(productQuantity.getText().toString()) + 1;
-
-                values.put(InventoryEntry.COLUMN_PRODUCT_QUANTITY, newQuantity);
-
-                int rowsAffected = view.getContext().getContentResolver().update(mCurrentProductUri, values, null, null);
-
-                // Show a toast message depending on whether or not the update was successful.
-                if (rowsAffected == 0) {
-                    // If no rows were affected, then there was an error with the update.
-                    Toast.makeText(view.getContext(), "updating failed!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

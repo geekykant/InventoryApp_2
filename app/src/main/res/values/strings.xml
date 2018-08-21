@@ -24,4 +24,5 @@
     <string name="call_supplier">Call Supplier</string>
     <string name="delete_product">DELETE PRODUCT</string>
     <string name="instructions">No Products Added!  \n\n1. To add a product, click on button at the bottom right.  \n2. Enter the details of the product.  \n3. Click on Submit.</string>
+    <string name="sale">SALE</string>
 </resources>
