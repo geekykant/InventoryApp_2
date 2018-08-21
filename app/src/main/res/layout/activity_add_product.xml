@@ -34,6 +34,7 @@
         <EditText
             android:id="@+id/addProductPrice"
             android:layout_width="match_parent"
+            android:inputType="number"
             android:layout_height="wrap_content"
             android:hint="Price" />
 
@@ -47,6 +48,7 @@
             android:id="@+id/addProductQuantity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="number"
             android:hint="Quantity" />
 
     </android.support.design.widget.TextInputLayout>

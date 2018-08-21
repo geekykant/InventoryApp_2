@@ -27,6 +27,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+        <activity
+            android:name=".ProductDetails"
+            android:label="Product Details" />
     </application>
 
 </manifest>

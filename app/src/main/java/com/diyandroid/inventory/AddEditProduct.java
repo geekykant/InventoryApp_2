@@ -37,12 +37,12 @@ public class AddEditProduct extends AppCompatActivity implements
     private EditText mProductSupplierName;
     private EditText mProductSupplierPhone;
 
-    private boolean mPetHasChanged = false;
+    private boolean mProductHasChanged = false;
 
     private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
-            mPetHasChanged = true;
+            mProductHasChanged = true;
             return false;
         }
     };
@@ -97,13 +97,13 @@ public class AddEditProduct extends AppCompatActivity implements
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                savePet();
+                saveProduct();
                 finish();
             }
         });
     }
 
-    private void savePet() {
+    private void saveProduct() {
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
         String productName = mProductName.getText().toString().trim();
@@ -188,7 +188,9 @@ public class AddEditProduct extends AppCompatActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu options from the res/menu/menu_editor.xml file.
         // This adds menu items to the app bar.
-        getMenuInflater().inflate(R.menu.dot_menu, menu);
+        if (mCurrentProductUri!= null) {
+            getMenuInflater().inflate(R.menu.dot_menu, menu);
+        }
         return true;
     }
 
@@ -199,18 +201,14 @@ public class AddEditProduct extends AppCompatActivity implements
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        // If this is a new pet, hide the "Delete" menu item.
-        if (mCurrentProductUri == null) {
+
+        if (mCurrentProductUri != null) {
             MenuItem menuItem = menu.findItem(R.id.delete_all);
-            menuItem.setVisible(false);
+            menuItem.setTitle("Delete Entry");
+            menu.findItem(R.id.add_dummy_entry).setVisible(false);
         }
+
         return true;
-    }
-
-    @Override
-    public boolean onNavigateUp() {
-
-        return super.onNavigateUp();
     }
 
     @Override
@@ -223,7 +221,7 @@ public class AddEditProduct extends AppCompatActivity implements
                 return true;
             // Respond to a click on the "Up" arrow button in the app bar
             case android.R.id.home:
-                if (!mPetHasChanged) {
+                if (!mProductHasChanged) {
                     NavUtils.navigateUpFromSameTask(AddEditProduct.this);
                     return true;
                 }
@@ -251,7 +249,7 @@ public class AddEditProduct extends AppCompatActivity implements
     @Override
     public void onBackPressed() {
         // If the pet hasn't changed, continue with handling back button press
-        if (!mPetHasChanged) {
+        if (!mProductHasChanged) {
             super.onBackPressed();
             return;
         }
@@ -273,8 +271,8 @@ public class AddEditProduct extends AppCompatActivity implements
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        // Since the editor shows all pet attributes, define a projection that contains
-        // all columns from the pet table
+        // Since the editor shows all product attributes, define a projection that contains
+        // all columns from the product table
         String[] projection = {
                 InventoryEntry._ID,
                 InventoryEntry.COLUMN_PRODUCT_NAME,
@@ -285,7 +283,7 @@ public class AddEditProduct extends AppCompatActivity implements
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context
-                mCurrentProductUri,         // Query the content URI for the current pet
+                mCurrentProductUri,         // Query the content URI for the current product
                 projection,             // Columns to include in the resulting Cursor
                 null,                   // No selection clause
                 null,                   // No selection arguments

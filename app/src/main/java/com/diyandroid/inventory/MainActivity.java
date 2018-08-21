@@ -19,7 +19,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.diyandroid.inventory.data.InventoryContract.InventoryEntry;
-import com.diyandroid.inventory.data.InventoryDbHelper;
 
 public class MainActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
@@ -27,13 +26,9 @@ public class MainActivity extends AppCompatActivity implements
     /**
      * Database helper that will provide us access to the database
      */
-    private InventoryDbHelper mInventoryDbHelper;
-    private ListView listView;
     ProductCursorAdapter mCursorAdapter;
 
-    /**
-     * Identifier for the pet data loader
-     */
+    //Identifier for the pet data loader
     private static final int PET_LOADER = 0;
 
     @Override
@@ -53,9 +48,6 @@ public class MainActivity extends AppCompatActivity implements
         // Find the ListView which will be populated with the pet data
         ListView petListView = (ListView) findViewById(R.id.listView);
 
-
-        // Setup an Adapter to create a list item for each row of pet data in the Cursor.
-        // There is no pet data yet (until the loader finishes) so pass in null for the Cursor.
         mCursorAdapter = new ProductCursorAdapter(this, null);
         petListView.setAdapter(mCursorAdapter);
 
@@ -63,11 +55,10 @@ public class MainActivity extends AppCompatActivity implements
         petListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, AddEditProduct.class);
 
+                Intent intent = new Intent(MainActivity.this, ProductDetails.class);
                 Uri currentPetUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, id);
 
-                // Set the URI on the data field of the intent
                 intent.setData(currentPetUri);
                 startActivity(intent);
             }
@@ -77,14 +68,14 @@ public class MainActivity extends AppCompatActivity implements
         getLoaderManager().initLoader(PET_LOADER, null, this);
     }
 
-    private void insertProduct() {
+    private void insertDummyProduct() {
         // Create a ContentValues object where column names are the keys,
         // and Toto's pet attributes are the values.
         ContentValues values = new ContentValues();
-        values.put(InventoryEntry.COLUMN_PRODUCT_NAME, "Toto");
-        values.put(InventoryEntry.COLUMN_PRODUCT_PRICE, 4000);
+        values.put(InventoryEntry.COLUMN_PRODUCT_NAME, "Apple MacBook Air");
+        values.put(InventoryEntry.COLUMN_PRODUCT_PRICE, 43000);
         values.put(InventoryEntry.COLUMN_PRODUCT_QUANTITY, 3);
-        values.put(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_NAME, "BLAH");
+        values.put(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_NAME, "Amazon");
         values.put(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NO, "9082187");
 
         Uri newUri = getContentResolver().insert(InventoryEntry.CONTENT_URI, values);
@@ -106,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_dummy_entry:
-                insertProduct();
+                insertDummyProduct();
                 return true;
 
             case R.id.delete_all:
@@ -123,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements
                 InventoryEntry._ID,
                 InventoryEntry.COLUMN_PRODUCT_NAME,
                 InventoryEntry.COLUMN_PRODUCT_PRICE,
-                InventoryEntry.COLUMN_PRODUCT_QUANTITY };
+                InventoryEntry.COLUMN_PRODUCT_QUANTITY};
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context
@@ -144,5 +135,6 @@ public class MainActivity extends AppCompatActivity implements
     public void onLoaderReset(Loader<Cursor> loader) {
         // Callback called when the data needs to be deleted
         mCursorAdapter.swapCursor(null);
+        mCursorAdapter.notifyDataSetChanged();
     }
 }

@@ -7,18 +7,50 @@
     android:padding="10dp"
     tools:context="com.diyandroid.inventory.MainActivity">
 
-
-    <TextView
+    <LinearLayout
         android:id="@+id/displayView"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="17sp" />
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="@android:color/holo_red_dark"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:text="@string/product"
+            android:textSize="19sp" />
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:textColor="@android:color/holo_red_dark"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:text="@string/quantity_list"
+            android:textSize="19sp" />
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:textColor="@android:color/holo_red_dark"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:text="@string/price_list"
+            android:textSize="19sp" />
+
+    </LinearLayout>
 
     <ListView
         android:id="@+id/listView"
+        android:layout_below="@id/displayView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -27,6 +59,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="10dp"
-        android:src="@drawable/ic_action_name" />
+        android:src="@drawable/ic_action_add" />
 
 </RelativeLayout>
